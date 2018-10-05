@@ -1,0 +1,36 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "server",
+      "image": "682793961433.dkr.ecr.us-east-1.amazonaws.com/service-ard:latest",
+      "essential": true,
+      "memory": 2000,
+      "portMappings": [
+        {
+          "hostPort": 9000,
+          "containerPort": 9000,
+          "protocol": "tcp"
+        }
+      ],
+      "cpu": 5
+    },
+    {
+      "name": "proxy",
+      "image": "682793961433.dkr.ecr.us-east-1.amazonaws.com/nginx:dev",
+      "essential": true,
+      "memory": 200,
+      "cpu": 1,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "links": [
+        "server"
+      ]
+    }
+  ]
+}
